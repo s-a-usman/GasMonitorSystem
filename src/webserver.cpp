@@ -3,9 +3,16 @@
 SensorData ESPWebServer::currentData;
 
 void ESPWebServer::begin() {
-    if (!SPIFFS.begin(true)) {
-        Serial.println("SPIFFS Mount Failed");
-        return;
+    // Initialize SPIFFS with delay to ensure proper mounting
+    if (!SPIFFS.begin()) {
+        Serial.println("An error occurred while mounting SPIFFS");
+        if (!SPIFFS.begin()) { // Try again after delay
+            Serial.println("SPIFFS mount failed again, continuing without it");
+        } else {
+            Serial.println("SPIFFS mounted successfully after retry");
+        }
+    } else {
+        Serial.println("SPIFFS mounted successfully");
     }
 
     // Serve static files
@@ -29,6 +36,27 @@ void ESPWebServer::begin() {
     // API endpoint for historical data
     server.on("/api/historical-data", HTTP_GET, [this](AsyncWebServerRequest *request) {
         this->handleHistoricalData(request);
+    });
+
+
+    // Captive portal DNS redirect handler
+    server.onNotFound([](AsyncWebServerRequest *request) {
+        request->redirect("http://gasmonitor.local/");
+    });
+
+    // Add a route to handle the Apple captive portal detection
+    server.on("/hotspot-detect.html", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->redirect("http://gasmonitor.local/");
+    });
+
+    // Handle Android captive portal detection
+    server.on("/generate_204", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->redirect("http://gasmonitor.local/");
+    });
+
+    // Handle Microsoft captive portal detection
+    server.on("/ncsi.txt", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->redirect("http://gasmonitor.local/");
     });
 
     server.begin();
