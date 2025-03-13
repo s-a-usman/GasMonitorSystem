@@ -13,6 +13,7 @@ void ESPWebServer::begin() {
         }
     } else {
         Serial.println("SPIFFS mounted successfully");
+        Serial.print("Ko baya so!!!");
     }
 
     // Serve static files
