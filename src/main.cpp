@@ -57,7 +57,7 @@ class CaptiveRequestHandler : public AsyncWebHandler {
     
         void handleRequest(AsyncWebServerRequest *request) {
             // Redirect all requests to the captive portal
-            request->redirect("http://192.168.4.1/");
+            request->redirect("http://gasmonitor.local/");
         }
 };
 
