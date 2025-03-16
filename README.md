@@ -19,7 +19,6 @@ The Gas Monitor System is an ESP32-based project designed to monitor gas levels,
   - Temperature sensor
   - Vibration sensor
   - SD card module
-  - Wi-Fi network
 
 - **Software**:
   - PlatformIO

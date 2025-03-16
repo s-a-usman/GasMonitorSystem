@@ -31,7 +31,7 @@ SensorData Sensors::readAll() {
     SensorData data;
     
     // Read gas sensor
-    data.gasLevel = analogRead(MQ5_PIN);
+    data.gasLevel = analogRead(MQ5_PIN) / 10.0; // Adjusted formula to get 400 when reading 4000
     
     // Read temperature
     tempSensor.requestTemperatures();
@@ -75,7 +75,7 @@ void Sensors::checkAlerts(const SensorData& data) {
     alertActive = false;
 
     Serial.print("Gas Level: ");
-    Serial.println(analogRead(MQ5_PIN));
+    Serial.println(analogRead(MQ5_PIN)/ 10);
     Serial.print("Temperature: ");
     Serial.println(data.temperature);
     

@@ -172,9 +172,9 @@
         </div>
         <div class="grid">
             <div class="card">
-                <h2>Gas Level</h2>
+                <h2>Gas Level (ppm)</h2>
                 <div id="gasLevel" class="value">--</div>
-                <div class="unit">ppm</div>
+                <div class="unit">Detection threshold: 400ppm</div>
             </div>
             <div class="card">
                 <h2>Temperature</h2>
@@ -205,7 +205,7 @@
         let currentTimeRange = 'live';
         let updateInterval;
 
-        const GAS_THRESHOLD = 4500;
+        const GAS_THRESHOLD = 400;
         const VIBRATION_THRESHOLD = 0.98;
         const TEMPERATURE_THRESHOLD = 40;
 
